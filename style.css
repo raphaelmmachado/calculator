@@ -1,26 +1,48 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&display=swap');
-*{
+:root{
+    --bgc: rgba(233, 234, 240, 0.863)
+}
+*{  
     margin: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
 }
+body{
+    background-color: var(--bgc);
+}
 .container{
-
-    display: grid;
-    justify-content: center;
     
-    align-items: center;
+    border: 1px solid rgb(188, 188, 192);
+    display: grid;
+    justify-content: center; 
+    align-content: center;
     min-height: 100vh;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
     
 }
+.buttons{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(188, 188, 192);
+    background-color: white;
+    text-align: center;
+    font-size: 2em;
+}
 
 .output{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2em;
+    text-align: end;
+    overflow:hidden;
     grid-column: 1 / -1;
 }
 .span2{
     grid-column: span 2;
+}
+#equal{
+    background-color: rgb(87, 71, 230);
 }
