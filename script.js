@@ -51,11 +51,12 @@ function display() {
 
 const checkOperator = operatorText => { return operator = operatorText }
 
-const saveOperation = () => { 
-    if (currentOperation === operator || currentOperation === ''){
+const saveOperation = () => {
+    if (currentOperation === operator || currentOperation === '') {
         return valid = false
     }
-    previousOperation = currentOperation }
+    previousOperation = currentOperation
+}
 
 const remove = () => { currentElement.textContent = currentElement.textContent.slice(0, -1); }
 
