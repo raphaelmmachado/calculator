@@ -58,9 +58,10 @@ buttons:hover{
 .span2{
     grid-column: span 2;
 }
+
 #equal{
-    background-color: rgb(87, 71, 230);
+    background-color: rgba(119, 106, 236, 0.753);
 }
-#percent:hover{
-    cursor: not-allowed;
+#negative{
+    font-size: 1em;
 }

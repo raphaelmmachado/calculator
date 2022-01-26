@@ -3,15 +3,20 @@ const operatorsButtons = document.querySelectorAll('[data-operator]');
 const equalButton = document.querySelector('[data-equal]');
 const removeButton = document.querySelector('[data-remove]');
 const clearButton = document.querySelector('[data-clear]');
+const pointButton = document.querySelector('[data-point]')
+const negativeButton = document.querySelector('[data-negative]')
 const previousElement = document.querySelector('[data-output-previous]');
 const currentElement = document.querySelector('[data-output-current]');
+
 
 let currentOperation = ''
 let previousOperation = ''
 let operator = ''
 
+
 //mostrar texto e salvar texto atual na var
 function appendNumber(numberText) {
+
     currentElement.textContent += numberText
     currentOperation = currentElement.textContent
 }
@@ -43,29 +48,37 @@ function eval() {
             currentOperation = prev - curr
             previousElement.textContent = ''
             break;
-        case '/' || '÷':
+        case '÷':
             currentElement.textContent = prev / curr;
-            currentOperation = prev / curr
+            currentOperation = prev / curr;
             previousElement.textContent = ''
             break;
-        case '*':
+        case 'x':
             currentElement.textContent = prev * curr;
-            currentOperation = prev * curr
+            currentOperation = prev * curr;
             previousElement.textContent = ''
             break;
     }
 }
 
+const appendNegative = () => {
 
-function checkOperator(operatorText) {
-    if (operatorText === '÷') {
-        operatorText = '/'
+    if (currentElement.textContent.includes('-')) return
+    if (currentElement.textContent !== '') {
+        return currentElement.textContent = '-' + currentElement.textContent
     }
-    return operator = operatorText
+    currentElement.textContent += '-'
 }
+const checkOperator = operatorText => { return operator = operatorText }
+
 const saveOperation = () => { previousOperation = currentOperation }
+
 const remove = () => { currentElement.textContent = currentElement.textContent.slice(0, -1); }
 
+const appendPoint = pointText => {
+    if (currentElement.textContent.includes('.')) return
+    currentElement.textContent += pointText;
+}
 const clear = () => {
     currentElement.textContent = '';
     previousElement.textContent = '';
@@ -86,9 +99,14 @@ operatorsButtons.forEach(button => {
         appendOperator(operatorText)
         display();
         saveOperation();
-        checkOperator(operatorText)
+        checkOperator(operatorText);
     })
 })
+pointButton.addEventListener('click', e => {
+    let pointText = e.target.textContent
+    appendPoint(pointText)
+})
+negativeButton.addEventListener('click', appendNegative)
 
 equalButton.addEventListener('click', eval)
 
