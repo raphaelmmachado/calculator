@@ -20,7 +20,7 @@ function appendNumber(numberText) {
 }
 
 function appendOperator(operatorText) {
-    if (currentElement.textContent === '' || previousElement.textContent !== '') return
+    if (currentElement.textContent === '' || previousElement.textContent !== '' || currentElement.textContent === 'NaN') return
     currentElement.textContent += operatorText
 }
 const appendPoint = pointText => {
@@ -51,25 +51,27 @@ const saveOperation = () => { previousOperation = currentOperation }
 const remove = () => { currentElement.textContent = currentElement.textContent.slice(0, -1); }
 
 function eval() {
+   
     previousElement.textContent = ''
     currentElement.textContent = ''
     let prev = parseFloat(previousOperation);
     let curr = parseFloat(currentOperation);
-
+    
     switch (operator) {
+        
         case '+':
             currentElement.textContent = prev + curr;
             currentOperation = prev + curr
             previousElement.textContent = ''
             break;
         case '-':
-            currentElement.textContent = prev - curr;
-            currentOperation = prev - curr
+            currentElement.textContent = prev > curr ? prev - curr : curr - prev;
+            currentOperation = prev > curr ? prev - curr : curr - prev;
             previousElement.textContent = ''
             break;
         case '÷':
-            currentElement.textContent = prev / curr;
-            currentOperation = prev / curr;
+            currentElement.textContent = prev > curr ? prev / curr : curr / prev;
+            currentOperation = prev > curr ? prev / curr : curr / prev;
             previousElement.textContent = ''
             break;
         case 'x':
