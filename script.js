@@ -12,6 +12,7 @@ const currentElement = document.querySelector('[data-output-current]');
 let currentOperation = ''
 let previousOperation = ''
 let operator = ''
+let valid = true
 
 function appendNumber(numberText) {
 
@@ -20,7 +21,11 @@ function appendNumber(numberText) {
 }
 
 function appendOperator(operatorText) {
-    if (currentElement.textContent === '' || previousElement.textContent !== '' || currentElement.textContent === 'NaN') return
+    if (currentElement.textContent === '' ||
+        previousElement.textContent !== '' ||
+        currentElement.textContent == NaN) {
+        return valid = false
+    }
     currentElement.textContent += operatorText
 }
 const appendPoint = pointText => {
@@ -39,26 +44,32 @@ const appendNegative = () => {
 }
 
 function display() {
-    if (previousElement.textContent !== '') return
+    if (previousElement.textContent !== '') return valid = false
     previousElement.textContent = currentElement.textContent
     currentElement.textContent = '';
 }
 
 const checkOperator = operatorText => { return operator = operatorText }
 
-const saveOperation = () => { previousOperation = currentOperation }
+const saveOperation = () => { 
+    if (currentOperation === operator || currentOperation === ''){
+        return valid = false
+    }
+    previousOperation = currentOperation }
 
 const remove = () => { currentElement.textContent = currentElement.textContent.slice(0, -1); }
 
 function eval() {
-   
+    if (valid === false) {
+        return
+    }
     previousElement.textContent = ''
     currentElement.textContent = ''
     let prev = parseFloat(previousOperation);
     let curr = parseFloat(currentOperation);
-    
+
     switch (operator) {
-        
+
         case '+':
             currentElement.textContent = prev + curr;
             currentOperation = prev + curr
