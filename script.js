@@ -13,24 +13,43 @@ let currentOperation = ''
 let previousOperation = ''
 let operator = ''
 
-
-//mostrar texto e salvar texto atual na var
 function appendNumber(numberText) {
 
     currentElement.textContent += numberText
     currentOperation = currentElement.textContent
 }
-//juntar operador com numeros
+
 function appendOperator(operatorText) {
     if (currentElement.textContent === '' || previousElement.textContent !== '') return
     currentElement.textContent += operatorText
 }
-//mudar texto atual e anterior quando clica em algum operador
+const appendPoint = pointText => {
+    if (currentElement.textContent.includes('.')) return
+    currentElement.textContent += pointText;
+}
+
+const appendNegative = () => {
+
+    if (currentElement.textContent.includes('-')) return
+    if (currentElement.textContent !== '') {
+        return currentElement.textContent = '-' + currentElement.textContent
+    }
+    currentElement.textContent += '-'
+    currentOperation = currentElement.textContent
+}
+
 function display() {
     if (previousElement.textContent !== '') return
     previousElement.textContent = currentElement.textContent
     currentElement.textContent = '';
 }
+
+const checkOperator = operatorText => { return operator = operatorText }
+
+const saveOperation = () => { previousOperation = currentOperation }
+
+const remove = () => { currentElement.textContent = currentElement.textContent.slice(0, -1); }
+
 function eval() {
     previousElement.textContent = ''
     currentElement.textContent = ''
@@ -61,24 +80,6 @@ function eval() {
     }
 }
 
-const appendNegative = () => {
-
-    if (currentElement.textContent.includes('-')) return
-    if (currentElement.textContent !== '') {
-        return currentElement.textContent = '-' + currentElement.textContent
-    }
-    currentElement.textContent += '-'
-}
-const checkOperator = operatorText => { return operator = operatorText }
-
-const saveOperation = () => { previousOperation = currentOperation }
-
-const remove = () => { currentElement.textContent = currentElement.textContent.slice(0, -1); }
-
-const appendPoint = pointText => {
-    if (currentElement.textContent.includes('.')) return
-    currentElement.textContent += pointText;
-}
 const clear = () => {
     currentElement.textContent = '';
     previousElement.textContent = '';
