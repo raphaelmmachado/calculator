@@ -4,127 +4,123 @@ const equalButton = document.querySelector('[data-equal]');
 const removeButton = document.querySelector('[data-remove]');
 const clearButton = document.querySelector('[data-clear]');
 const pointButton = document.querySelector('[data-point]')
-const negativeButton = document.querySelector('[data-negative]')
+const commaButton = document.querySelector('[data-comma]')
 const previousElement = document.querySelector('[data-output-previous]');
 const currentElement = document.querySelector('[data-output-current]');
 
 
-let currentOperation = ''
-let previousOperation = ''
+let current = '' 
+let previous = '' 
 let operator = ''
-let valid = true
+let result = ''
 
-function appendNumber(numberText) {
 
-    currentElement.textContent += numberText
-    currentOperation = currentElement.textContent
+const appendNumber = numberText => {
+ 
+    current += numberText
 }
 
-function appendOperator(operatorText) {
-    if (currentElement.textContent === '' ||
-        previousElement.textContent !== '' ||
-        currentElement.textContent == NaN) {
-        return valid = false
-    }
-    currentElement.textContent += operatorText
-}
 const appendPoint = pointText => {
-    if (currentElement.textContent.includes('.')) return
-    currentElement.textContent += pointText;
-}
-
-const appendNegative = () => {
-
-    if (currentElement.textContent.includes('-')) return
-    if (currentElement.textContent !== '') {
-        return currentElement.textContent = '-' + currentElement.textContent
+    if (current.includes('.')) return
+    if (current === '') {
+        current = '0'
     }
-    currentElement.textContent += '-'
-    currentOperation = currentElement.textContent
+    current += pointText
 }
 
-function display() {
-    if (previousElement.textContent !== '') return valid = false
-    previousElement.textContent = currentElement.textContent
-    currentElement.textContent = '';
+const display = () => {
+    currentElement.textContent = current
+    previousElement.textContent = `${previous}${operator}`
 }
 
-const checkOperator = operatorText => { return operator = operatorText }
+const checkOperator = operatorText => {
+    return operator = operatorText
+}
 
-const saveOperation = () => {
-    if (currentOperation === operator || currentOperation === '') {
-        return valid = false
+const saveOperation = operatorText => {
+    if (current === '' && previous === '') {
+        return
+    } else if (current === '' && previous.includes(operatorText)) {
+        return
+    } else if (current !== '' && previous !== '') {
+        eval()
     }
-    previousOperation = currentOperation
+    previous = current
+    current = ''
+    display()
 }
 
-const remove = () => { currentElement.textContent = currentElement.textContent.slice(0, -1); }
+const remove = () => {
+    current = current.slice(0, -1);
+    display()
+}
 
-function eval() {
-    if (valid === false) {
+const eval = () => {
+    let prev = parseFloat(previous)
+    let curr = parseFloat(current)
+    if (isNaN(prev) || isNaN(curr)) {
+        alert("Error")
         return
     }
-    previousElement.textContent = ''
-    currentElement.textContent = ''
-    let prev = parseFloat(previousOperation);
-    let curr = parseFloat(currentOperation);
-
     switch (operator) {
-
         case '+':
-            currentElement.textContent = prev + curr;
-            currentOperation = prev + curr
-            previousElement.textContent = ''
+            result = prev + curr
             break;
         case '-':
-            currentElement.textContent = prev > curr ? prev - curr : curr - prev;
-            currentOperation = prev > curr ? prev - curr : curr - prev;
-            previousElement.textContent = ''
-            break;
-        case '÷':
-            currentElement.textContent = prev > curr ? prev / curr : curr / prev;
-            currentOperation = prev > curr ? prev / curr : curr / prev;
-            previousElement.textContent = ''
+            result = prev - curr
             break;
         case 'x':
-            currentElement.textContent = prev * curr;
-            currentOperation = prev * curr;
-            previousElement.textContent = ''
+            result = prev * curr
             break;
+        case '÷':
+            result = prev / curr
+            break;
+        case '%':
+            result = (prev / 100) * curr
+            break;
+        default:
+            return
     }
+    result = result.toString();
+    current = result;
+    previous = ''
+    operator = ''
+    display()
 }
 
 const clear = () => {
-    currentElement.textContent = '';
-    previousElement.textContent = '';
-    currentOperation = '';
-    previousOperation = '';
+    current = ''
+    previous = ''
+    currentElement.textContent = ''
+    previousElement.textContent = ''
 }
 
 numbersButtons.forEach(button => {
     button.addEventListener('click', e => {
         let numberText = e.target.textContent
         appendNumber(numberText);
+        display()
     })
 })
 
 operatorsButtons.forEach(button => {
     button.addEventListener('click', e => {
         let operatorText = e.target.textContent
-        appendOperator(operatorText)
-        display();
-        saveOperation();
-        checkOperator(operatorText);
+        saveOperation(operatorText)
+        checkOperator(operatorText)
+        display()
     })
 })
+
 pointButton.addEventListener('click', e => {
     let pointText = e.target.textContent
     appendPoint(pointText)
+    display()
 })
-negativeButton.addEventListener('click', appendNegative)
 
 equalButton.addEventListener('click', eval)
 
 clearButton.addEventListener('click', clear)
 
 removeButton.addEventListener('click', remove)
+
