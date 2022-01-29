@@ -75,9 +75,7 @@ const eval = () => {
         case '÷':
             result = prev / curr
             break;
-        case '%':
-            result = (prev / 100) * curr
-            break;
+        
         default:
             return
     }
