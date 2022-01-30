@@ -10,8 +10,7 @@
     font-weight: 500;
 }
 body{
-    background-color: var(--bgc);
-    
+    background-color: var(--bgc); 
 }
 .container{
     
