@@ -11,7 +11,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot/screenshot.png)
+![](./screenshot/Screenshot.png)
 
 ### Built with
 - HTML
