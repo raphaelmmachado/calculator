@@ -12,7 +12,7 @@ Users should be able to:
 - see wich numbers clicked
 - select an operator
 - save previous number and see them
-- click on another number 
+- click on numbers again 
 - click on equals button to do the operation
 
 ### Built with
