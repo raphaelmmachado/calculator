@@ -1,4 +1,4 @@
-https://rm0909.github.io/calculator/
+ GitHub Pages: https://rm0909.github.io/calculator/
 
 ### Screenshot
 
