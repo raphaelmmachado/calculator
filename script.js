@@ -16,7 +16,6 @@ let result = ''
 
 
 const appendNumber = numberText => {
- 
     current += numberText
 }
 
@@ -29,20 +28,25 @@ const appendPoint = pointText => {
 }
 
 const display = () => {
+    if (previous === ''){
+        operator = ''
+    }
     currentElement.textContent = current
     previousElement.textContent = `${previous}${operator}`
+    
 }
 
 const checkOperator = operatorText => {
+
     return operator = operatorText
 }
 
-const saveOperation = operatorText => {
-    if (current === '' && previous === '') {
+const saveOperation = () => {
+    if (current === '' && previous === '') return
+    if (current === '' && previous !== '' && operator != undefined){
         return
-    } else if (current === '' && previous.includes(operatorText)) {
-        return
-    } else if (current !== '' && previous !== '') {
+    }
+    if (current !== '' && previous !== '' && operator != undefined) {
         eval()
     }
     previous = current
@@ -58,7 +62,7 @@ const remove = () => {
 const eval = () => {
     let prev = parseFloat(previous)
     let curr = parseFloat(current)
-    if (isNaN(prev) || isNaN(curr)) {
+    if (isNaN(prev) || isNaN(curr) || operator == undefined) {
         alert("Error")
         return
     }
@@ -89,6 +93,7 @@ const eval = () => {
 const clear = () => {
     current = ''
     previous = ''
+    operator = ''
     currentElement.textContent = ''
     previousElement.textContent = ''
 }
@@ -98,15 +103,17 @@ numbersButtons.forEach(button => {
         let numberText = e.target.textContent
         appendNumber(numberText);
         display()
+        
     })
 })
 
 operatorsButtons.forEach(button => {
     button.addEventListener('click', e => {
         let operatorText = e.target.textContent
-        saveOperation(operatorText)
+        saveOperation()
         checkOperator(operatorText)
         display()
+        
     })
 })
 
