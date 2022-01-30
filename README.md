@@ -1,3 +1,9 @@
+https://rm0909.github.io/calculator/
+
+### Screenshot
+
+![](./screenshot/Screenshot.png)
+
 ### The challenge
 
 Users should be able to:
@@ -8,10 +14,6 @@ Users should be able to:
 - save previous number and see them
 - click on another number 
 - click on equals button to do the operation
-
-### Screenshot
-
-![](./screenshot/Screenshot.png)
 
 ### Built with
 - HTML
