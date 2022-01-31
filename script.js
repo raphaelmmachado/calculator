@@ -9,8 +9,8 @@ const previousElement = document.querySelector('[data-output-previous]');
 const currentElement = document.querySelector('[data-output-current]');
 
 
-let current = '' 
-let previous = '' 
+let current = ''
+let previous = ''
 let operator = ''
 let result = ''
 
@@ -28,12 +28,12 @@ const appendPoint = pointText => {
 }
 
 const display = () => {
-    if (previous === ''){
+    if (previous === '') {
         operator = ''
     }
-    currentElement.textContent = current
-    previousElement.textContent = `${previous}${operator}`
-    
+    currentElement.textContent = `${current}`
+    previousElement.textContent = `${previous} ${operator}`
+
 }
 
 const checkOperator = operatorText => {
@@ -43,11 +43,11 @@ const checkOperator = operatorText => {
 
 const saveOperation = () => {
     if (current === '' && previous === '') return
-    if (current === '' && previous !== '' && operator != undefined){
+    if (current === '' && previous !== '' && operator != undefined) {
         return
     }
     if (current !== '' && previous !== '' && operator != undefined) {
-        eval()
+        calculate()
     }
     previous = current
     current = ''
@@ -59,10 +59,11 @@ const remove = () => {
     display()
 }
 
-const eval = () => {
+const calculate = () => {
     let prev = parseFloat(previous)
     let curr = parseFloat(current)
     if (isNaN(prev) || isNaN(curr) || operator == undefined) {
+
         alert("Error")
         return
     }
@@ -79,14 +80,31 @@ const eval = () => {
         case '÷':
             result = prev / curr
             break;
-        
+
         default:
             return
     }
-    result = result.toString();
-    current = result;
+    current = result.toString();
+
     previous = ''
     operator = ''
+
+    display()
+}
+
+const handleKeyboardInput = inputed => {
+    let key = inputed.key
+    if (key == '*') key = 'x'
+    if (key == '/') key = '÷'
+    if (key >= 0 && key <= 9) appendNumber(key)
+    if (key == '.') appendPoint(key)
+    if (key == '+' || key == '-' || key == '÷' || key == 'x') {
+        checkOperator(key)
+        saveOperation()
+    }
+    if (key == 'Enter' || key == '=') calculate()
+    if (key == 'Backspace') remove()
+    if (key == 'Delete') clear()
     display()
 }
 
@@ -103,7 +121,6 @@ numbersButtons.forEach(button => {
         let numberText = e.target.textContent
         appendNumber(numberText);
         display()
-        
     })
 })
 
@@ -113,7 +130,6 @@ operatorsButtons.forEach(button => {
         saveOperation()
         checkOperator(operatorText)
         display()
-        
     })
 })
 
@@ -123,9 +139,11 @@ pointButton.addEventListener('click', e => {
     display()
 })
 
-equalButton.addEventListener('click', eval)
+equalButton.addEventListener('click', calculate)
 
 clearButton.addEventListener('click', clear)
 
 removeButton.addEventListener('click', remove)
+
+window.addEventListener('keydown', handleKeyboardInput)
 
