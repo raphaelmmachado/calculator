@@ -146,4 +146,3 @@ clearButton.addEventListener('click', clear)
 removeButton.addEventListener('click', remove)
 
 window.addEventListener('keydown', handleKeyboardInput)
-
