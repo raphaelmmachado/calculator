@@ -2,9 +2,7 @@
 
 https://rm0909.github.io/calculator/
 
-### Screenshot
 
-![](./screenshot/Screenshot.png)
 
 ### Built with
 - HTML
