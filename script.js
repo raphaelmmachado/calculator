@@ -104,7 +104,7 @@ const handleKeyboardInput = inputed => {
     }
     if (key == 'Enter' || key == '=') calculate()
     if (key == 'Backspace') remove()
-    if (key == 'Delete') clear()
+    if (key == 'Delete' || key == 'c') clear()
     display()
 }
 
