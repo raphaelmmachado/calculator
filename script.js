@@ -64,7 +64,6 @@ const calculate = () => {
     let curr = parseFloat(current)
     if (isNaN(prev) || isNaN(curr) || operator == undefined) {
 
-        alert("Error")
         return
     }
     switch (operator) {
@@ -104,7 +103,7 @@ const handleKeyboardInput = inputed => {
     }
     if (key == 'Enter' || key == '=') calculate()
     if (key == 'Backspace') remove()
-    if (key == 'Delete') clear()
+    if (key == 'Delete' || key == 'c') clear()
     display()
 }
 
