@@ -33,11 +33,9 @@ const display = () => {
     }
     currentElement.textContent = `${current}`
     previousElement.textContent = `${previous} ${operator}`
-
 }
 
 const checkOperator = operatorText => {
-
     return operator = operatorText
 }
 
@@ -62,10 +60,9 @@ const remove = () => {
 const calculate = () => {
     let prev = parseFloat(previous)
     let curr = parseFloat(current)
-    if (isNaN(prev) || isNaN(curr) || operator == undefined) {
-
-        return
-    }
+    
+    if (isNaN(prev) || isNaN(curr) || operator == undefined) return
+    
     switch (operator) {
         case '+':
             result = prev + curr
