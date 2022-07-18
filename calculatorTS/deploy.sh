@@ -13,7 +13,8 @@ cd dist
 # echo 'www.example.com' > CNAME
 
 git init
-git checkout -b main
+# git checkout -b main
+git checkout -b typescript
 git add -A
 git commit -m 'deploy'
 
