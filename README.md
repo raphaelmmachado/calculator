@@ -1,6 +1,7 @@
 ### Github Pages:
 https://raphaelmmachado.github.io/calculator/
-
+## Screenshot
+![screenshot](./ss.png)
 # Calculator
 I made a simple calculator without using eval.
 It does the four basic math operations.
